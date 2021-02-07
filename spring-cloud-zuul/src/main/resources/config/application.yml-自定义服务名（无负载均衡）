@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: cloud-zuul
+server:
+  port: 9100
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7900/eureka/,http://localhost:7901/eureka/,http://localhost:7902/eureka/
+#  instance:
+#    hostname: localhost
+#    instance-id: cloud-zuul
+zuul:
+  routes:
+    custom-zuul-name:
+      path: /custom-zuul-api-service/**
+      url: http://localhost:9000
