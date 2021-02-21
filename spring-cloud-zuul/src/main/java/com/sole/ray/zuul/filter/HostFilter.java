@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * 作用：对ip进行限制
  *
  */
-@Component
+//@Component
 public class HostFilter extends ZuulFilter {
 
     @Override

@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: cloud-eureka
+
+server:
+  port: 7900
+
+eureka:
+  client:
+    #是否将自己注册到Eureka Server，默认为true，由于当前就是server，故而设置成false，表明该服务不会向eureka注册自己的信息
+    register-with-eureka: false
+    #是否从eureka server获取注册信息。默认为true，对eureka服务而言，单节点的情况下，不需要。集群的时候，需要，因为需要同步其它节点的注册信息
+    fetch-registry: true
+    #当eureka集群的时候，需要配置下面这个，格式：http://${eureka.instance.hostname}:${server.port}/eureka
+    service-url:
+      defaultZone: http://192.168.0.10:7900/eureka/,http://192.168.0.11:7900/eureka/,http://192.168.0.12:7900/eureka/
+#  server:
+#    # 自我保护看自己情况
+#    enable-self-preservation: true
+#    # 续约阈值，和自我保护相关
+#    renewal-percent-threshold: 0.85
+#    # server剔除过期服务的时间间隔
+#    #    eviction-interval-timer-in-ms: 1000
+#    # 是否开启readOnly读缓存
+#    use-read-only-response-cache: true
+#    # 关闭 readOnly
+#    response-cache-update-interval-ms: 1000

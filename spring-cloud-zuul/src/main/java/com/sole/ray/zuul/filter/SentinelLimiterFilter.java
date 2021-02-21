@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class SentinelLimiterFilter extends ZuulFilter implements InitializingBean {
 
     private static final String RESOURCE_NAME = "HelloWorld";

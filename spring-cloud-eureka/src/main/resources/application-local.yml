@@ -2,9 +2,6 @@ spring:
   application:
     name: cloud-eureka
 
-server:
-  port: 7900
-
 eureka:
   client:
     #是否将自己注册到Eureka Server，默认为true，由于当前就是server，故而设置成false，表明该服务不会向eureka注册自己的信息
@@ -13,7 +10,7 @@ eureka:
     fetch-registry: true
     #当eureka集群的时候，需要配置下面这个，格式：http://${eureka.instance.hostname}:${server.port}/eureka
     service-url:
-      defaultZone: http://192.168.0.10:7900/eureka/,http://192.168.0.11:7900/eureka/,http://192.168.0.12:7900/eureka/
+      defaultZone: http://localhost:7900/eureka/,http://localhost:7900/eureka/,http://localhost:7900/eureka/
 #  server:
 #    # 自我保护看自己情况
 #    enable-self-preservation: true
@@ -25,3 +22,21 @@ eureka:
 #    use-read-only-response-cache: true
 #    # 关闭 readOnly
 #    response-cache-update-interval-ms: 1000
+
+---
+spring:
+  profiles: 7900
+server:
+  port: 7900
+
+---
+spring:
+  profiles: 7901
+server:
+  port: 7901
+
+---
+spring:
+  profiles: 7902
+server:
+  port: 7902
