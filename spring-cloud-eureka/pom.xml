@@ -11,6 +11,7 @@
 
     <artifactId>spring-cloud-eureka</artifactId>
 
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -18,4 +19,15 @@
             <version>${spring-cloud-starter-netfilx.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>spring-cloud-eureka</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -13,5 +13,18 @@ eureka:
 #    hostname: localhost
 #    instance-id: cloud-zuul
 zuul:
+  sensitive-headers:
   routes:
     api-service: /zuul-api-service/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    routes:
+      enabled: true
