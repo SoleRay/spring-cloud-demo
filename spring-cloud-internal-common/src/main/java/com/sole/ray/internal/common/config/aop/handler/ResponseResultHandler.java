@@ -1,9 +1,9 @@
 package com.sole.ray.internal.common.config.aop.handler;
 
-import com.sole.ray.common.anno.ResponseResult;
-import com.sole.ray.common.bean.result.ErrorResult;
-import com.sole.ray.common.bean.result.Result;
-import com.sole.ray.common.util.Constants;
+import com.sole.ray.internal.common.anno.ResponseResult;
+import com.sole.ray.internal.common.bean.result.ErrorResult;
+import com.sole.ray.internal.common.bean.result.Result;
+import com.sole.ray.internal.common.util.Constants;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

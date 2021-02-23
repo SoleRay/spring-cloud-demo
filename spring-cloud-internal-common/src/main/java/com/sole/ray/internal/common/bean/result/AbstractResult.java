@@ -1,10 +1,15 @@
 package com.sole.ray.internal.common.bean.result;
 
+import lombok.Data;
+
+@Data
 public abstract class AbstractResult {
 
-    private String code; //编码
+    /** 结果码 */
+    private String code;
 
-    private String message;  //结果说明
+    /** 结果详细信息 */
+    private String message;
 
     public AbstractResult(String code, String message) {
         this.code = code;
@@ -14,21 +19,5 @@ public abstract class AbstractResult {
     protected AbstractResult(ResultCode resultCode) {
         this.code = resultCode.getCode();
         this.message = resultCode.getMsg();
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

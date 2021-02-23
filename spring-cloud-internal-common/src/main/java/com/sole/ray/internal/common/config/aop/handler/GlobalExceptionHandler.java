@@ -1,7 +1,8 @@
 package com.sole.ray.internal.common.config.aop.handler;
 
-import com.sole.ray.common.bean.result.ErrorResult;
-import com.sole.ray.common.bean.result.ResultCode;
+import com.sole.ray.internal.common.bean.result.ErrorResult;
+import com.sole.ray.internal.common.bean.result.ResultCode;
+import com.sole.ray.internal.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

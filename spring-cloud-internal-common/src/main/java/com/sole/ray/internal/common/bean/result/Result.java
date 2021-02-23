@@ -7,6 +7,9 @@
  */
 package com.sole.ray.internal.common.bean.result;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 /**
  * ClassName: Result 
  * @Description: TODO
@@ -14,14 +17,17 @@ package com.sole.ray.internal.common.bean.result;
  * @date 2017年07月14日
  * @version 1.0
  */
+
+@Data
 public class Result<T> extends AbstractResult{
 
-	private T data;//数据
+	/** 具体结果数据 */
+	private T data;
 
 	public Result(String code, String message) {
 		this(code,message,null);
 	}
-
+//
 	public Result(String code, String message,T data) {
 		super(code, message);
 		this.data = data;
