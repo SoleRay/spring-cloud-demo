@@ -25,7 +25,6 @@ public class RouteFilter extends ZuulFilter {
     }
 
 
-
     @Override
     public int filterOrder() {
         return 0;

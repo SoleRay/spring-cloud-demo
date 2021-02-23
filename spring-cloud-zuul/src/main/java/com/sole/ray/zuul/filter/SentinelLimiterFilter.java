@@ -60,7 +60,7 @@ public class SentinelLimiterFilter extends ZuulFilter implements InitializingBea
             System.out.println("正常请求");
         } catch (BlockException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             entry.exit();
         }
 

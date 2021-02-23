@@ -40,17 +40,16 @@ public class RateLimitFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        if(RATE_LIMITER.tryAcquire()){
+        if (RATE_LIMITER.tryAcquire()) {
             return null;
-        }else {
+        } else {
             RequestContext context = RequestContext.getCurrentContext();
-            context.set("limit",false);
+            context.set("limit", false);
             context.setSendZuulResponse(false);
             context.setResponseStatusCode(HttpStatus.TOO_MANY_REQUESTS.value());
         }
         return null;
     }
-
 
 
 }
