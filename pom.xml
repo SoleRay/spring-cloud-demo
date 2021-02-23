@@ -47,6 +47,8 @@
     <modules>
         <module>spring-cloud-zuul</module>
         <module>spring-cloud-eureka</module>
+        <module>spring-cloud-internal-common</module>
+        <module>spring-cloud-business</module>
     </modules>
 
 
