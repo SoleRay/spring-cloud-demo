@@ -25,7 +25,7 @@ public class RibbonController {
 
     @GetMapping("/order-service")
     public Object getOrderService(){
-        ResponseEntity<Result> responseEntity = restTemplate.getForEntity("http://order-service/order/add", Result.class);
+        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/add",null, Result.class);
         return responseEntity.getBody();
     }
 }

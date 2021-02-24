@@ -50,6 +50,7 @@
         <module>spring-cloud-internal-common</module>
         <module>spring-cloud-business</module>
         <module>spring-cloud-ribbon</module>
+        <module>spring-cloud-feign</module>
     </modules>
 
 
