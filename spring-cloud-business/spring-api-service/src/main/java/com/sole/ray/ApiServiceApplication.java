@@ -1,9 +1,9 @@
-package com.sole.ray.api;
+package com.sole.ray;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "com.sole.ray")
+@SpringBootApplication
 public class ApiServiceApplication {
 
     public static void main(String[] args) {

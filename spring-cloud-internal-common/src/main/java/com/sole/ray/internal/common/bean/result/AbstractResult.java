@@ -1,8 +1,10 @@
 package com.sole.ray.internal.common.bean.result;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public abstract class AbstractResult {
 
     /** 结果码 */

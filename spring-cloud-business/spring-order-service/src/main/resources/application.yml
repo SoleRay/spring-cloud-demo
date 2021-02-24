@@ -16,7 +16,7 @@ spring:
 #    type: com.alibaba.druid.pool.DruidDataSource
 
 server:
-  port: 9100
+  port: 5100
 
 eureka:
   client:

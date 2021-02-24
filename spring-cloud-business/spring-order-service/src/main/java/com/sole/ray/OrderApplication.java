@@ -1,4 +1,4 @@
-package com.sole.ray.order;
+package com.sole.ray;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

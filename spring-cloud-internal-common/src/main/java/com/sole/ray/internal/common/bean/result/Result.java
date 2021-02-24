@@ -9,6 +9,7 @@ package com.sole.ray.internal.common.bean.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * ClassName: Result 
@@ -19,6 +20,7 @@ import lombok.Data;
  */
 
 @Data
+@NoArgsConstructor
 public class Result<T> extends AbstractResult{
 
 	/** 具体结果数据 */
