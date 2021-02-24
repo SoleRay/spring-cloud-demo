@@ -7,8 +7,8 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
 
 @SpringBootApplication
-//@RibbonClients(defaultConfiguration = {RibbonConfiguration.class})
-@RibbonClient(name = "order-service", configuration = RibbonConfiguration.class)
+@RibbonClients(defaultConfiguration = {RibbonConfiguration.class})
+//@RibbonClient(name = "order-service", configuration = RibbonConfiguration.class)
 public class RibbonApplication {
 
     public static void main(String[] args) {

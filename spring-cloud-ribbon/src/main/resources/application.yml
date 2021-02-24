@@ -11,3 +11,7 @@ eureka:
       defaultZone: http://192.168.0.10:7900/eureka/,http://192.168.0.11:7900/eureka/,http://192.168.0.12:7900/eureka/
 server:
   port: 5200
+
+#order-service:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
