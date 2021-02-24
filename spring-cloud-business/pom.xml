@@ -30,6 +30,11 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <version>${spring-cloud-starter-netfilx.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.sole.ray</groupId>
+            <artifactId>spring-cloud-internal-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 

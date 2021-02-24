@@ -66,12 +66,4 @@ public class Result<T> extends AbstractResult{
 		return new Result(resultCode,data);
 	}
 
-	public Object getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
-	}
-
 }

@@ -24,4 +24,5 @@ public class ErrorResult<T> extends AbstractResult {
     public static ErrorResult failure(ResultCode resultCode,Object errors){
         return new ErrorResult(resultCode,errors);
     }
+
 }

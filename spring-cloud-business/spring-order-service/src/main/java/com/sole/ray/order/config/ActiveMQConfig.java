@@ -13,7 +13,7 @@ import javax.jms.Queue;
  * @author 马士兵教育:chaopengfei
  * @date 2020/7/30
  */
-@Configuration
+//@Configuration
 public class ActiveMQConfig {
 
     @Value("${spring.activemq.broker-url}")
