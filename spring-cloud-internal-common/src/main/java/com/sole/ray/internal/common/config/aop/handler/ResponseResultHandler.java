@@ -13,6 +13,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.lang.reflect.Method;
@@ -24,7 +25,12 @@ import java.lang.reflect.Method;
  *
  * 注意：如果方法的返回值是String，需要特殊处理
  * 因为当方法返回值是String时，用的convert是StringHttpMessageConverter
- * 而返回值是Object时，用的
+ * 而非String的返回值，只要Response的Head里的ContentType = application/json，用的就是MappingJackson2HttpMessageConverter
+ *
+ *
+ * 关于SpringMvc Converter默认初始化的顺序，详情见{@link WebMvcConfigurationSupport}#addDefaultHttpMessageConverters
+ *
+ * 所以对String的值，要做特殊处理
  */
 @Slf4j
 @ControllerAdvice
