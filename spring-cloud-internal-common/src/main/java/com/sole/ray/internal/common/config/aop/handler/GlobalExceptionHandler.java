@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     public ErrorResult handleException(Exception e) {
         // 打印异常堆栈信息
         log.error(e.getMessage(), e);
-        return ErrorResult.failure(ResultCode.UNKNOWN_ERROR);
+        return ErrorResult.failure(ResultCode.INTERNAL_ERROR);
     }
 
     /**

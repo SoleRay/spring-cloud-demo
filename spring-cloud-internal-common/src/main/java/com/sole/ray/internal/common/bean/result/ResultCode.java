@@ -8,9 +8,9 @@ public enum ResultCode {
     SUCCESS("0", "success"),
 
     /**
-     * 未知错误
+     * 内部错误
      */
-    UNKNOWN_ERROR("0x10001", "unkonwn error"),
+    INTERNAL_ERROR("0x10001", "internal error"),
 
     /**
      * 用户名错误或不存在

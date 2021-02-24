@@ -15,8 +15,23 @@ public class ApiController {
     @Value("${server.port}")
     private String port;
 
-    @GetMapping("/test")
-    public ApiObject test() {
+    @GetMapping("/object-port")
+    public ApiObject objectPort() {
         return new ApiObject(port,"api-service");
+    }
+
+    @GetMapping("/string-port")
+    public String stringPort() {
+        return "api-service:"+port;
+    }
+
+    @GetMapping("/int-port")
+    public int intPort() {
+        return Integer.parseInt(port);
+    }
+
+    @GetMapping("/integer-port")
+    public Integer integerPort() {
+        return Integer.parseInt(port);
     }
 }
