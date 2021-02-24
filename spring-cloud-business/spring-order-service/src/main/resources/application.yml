@@ -15,9 +15,6 @@ spring:
 #    driverClassName: com.mysql.jdbc.Driver
 #    type: com.alibaba.druid.pool.DruidDataSource
 
-server:
-  port: 5100
-
 eureka:
   client:
     service-url:

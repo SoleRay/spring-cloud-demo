@@ -49,6 +49,7 @@
         <module>spring-cloud-eureka</module>
         <module>spring-cloud-internal-common</module>
         <module>spring-cloud-business</module>
+        <module>spring-cloud-ribbon</module>
     </modules>
 
 
