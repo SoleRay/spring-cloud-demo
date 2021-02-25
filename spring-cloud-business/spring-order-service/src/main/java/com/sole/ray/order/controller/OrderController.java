@@ -31,8 +31,8 @@ public class OrderController {
     }
 
     @GetMapping("/api-test")
-    public Object apiTest() {
+    public Result apiTest() {
         ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://api-service/api/result-port",null, Result.class);
-        return responseEntity.getBody().getData();
+        return responseEntity.getBody();
     }
 }
