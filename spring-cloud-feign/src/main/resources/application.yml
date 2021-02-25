@@ -11,3 +11,36 @@ eureka:
       defaultZone: http://192.168.0.10:7900/eureka/,http://192.168.0.11:7900/eureka/,http://192.168.0.12:7900/eureka/
 server:
   port: 5300
+
+#feign:
+#  client:
+#    config:
+#      order-service:
+#        request-interceptors:
+#          - com.online.taxi.passenger.feign.interceptor.MyBasicAuthRequestInterceptor
+
+#feign:
+#  client:
+#    config:
+#      default:
+#        connect-timeout: 5000
+#        read-timeout: 5000
+#        logger-level: full
+
+#feign:
+#  compression:
+#    request:
+#      enabled: true
+#      mime-types:
+#        - text/xml
+#      min-request-size: 2048
+
+#feign:
+    #  client:
+    #    config:
+    #      service-valuation:
+    #        logger-level: basic
+    #
+    #logging:
+  #  level:
+  #    com.online.taxi.passenger.feign.ServiceForecast: debug
