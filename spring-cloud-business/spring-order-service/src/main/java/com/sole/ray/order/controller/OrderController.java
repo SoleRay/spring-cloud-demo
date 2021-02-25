@@ -2,14 +2,11 @@ package com.sole.ray.order.controller;
 
 import com.sole.ray.internal.common.anno.ResponseResult;
 import com.sole.ray.internal.common.bean.result.Result;
-import com.sole.ray.order.entity.Order;
+import com.sole.ray.internal.common.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -29,8 +26,8 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public int addOrder() {
-        return Integer.parseInt(port);
+    public void addOrder(@RequestBody Order order) {
+        System.out.println(order);
     }
 
     @GetMapping("/api-test")

@@ -18,8 +18,7 @@ public class FeignOrderController {
     private FeignOrderService feignOrderService;
 
     @PostMapping("add")
-    public Object addOrder(){
-        Result result = feignOrderService.addOrder();
-        return result.getData();
+    public void addOrder() {
+        Result result = feignOrderService.addOrder(new Order(1, 1000));
     }
 }

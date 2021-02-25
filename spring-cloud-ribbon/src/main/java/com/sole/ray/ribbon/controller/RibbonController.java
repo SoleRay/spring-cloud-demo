@@ -2,6 +2,7 @@ package com.sole.ray.ribbon.controller;
 
 import com.sole.ray.internal.common.anno.ResponseResult;
 import com.sole.ray.internal.common.bean.result.Result;
+import com.sole.ray.internal.common.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public class RibbonController {
 
     @GetMapping("/order-service")
     public Object getOrderService(){
-        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/add",null, Result.class);
+        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/add",new Order(1,1000), Result.class);
         return responseEntity.getBody();
     }
 }
