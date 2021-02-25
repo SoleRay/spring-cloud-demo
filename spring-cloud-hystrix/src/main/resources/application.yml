@@ -11,6 +11,3 @@ eureka:
       defaultZone: http://192.168.0.10:7900/eureka/,http://192.168.0.11:7900/eureka/,http://192.168.0.12:7900/eureka/
 server:
   port: 5500
-feign:
-  hystrix:
-    enabled: true
