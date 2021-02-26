@@ -16,12 +16,25 @@ public class HystrixFeignOrderServiceFallbackFactory implements FallbackFactory<
         return new HystrixFeignOrderService() {
             @Override
             public Result getOrder() {
-                log.error(e.getMessage());
-                return Result.failure(ResultCode.HYSTRIX_ERROR);
+                return getResult(e);
             }
 
             @Override
             public Result addOrder(Order order) {
+                return getResult(e);
+            }
+
+            @Override
+            public Result modifyOrder(Order order) {
+                return getResult(e);
+            }
+
+            @Override
+            public Result delOrder(int id) {
+                return getResult(e);
+            }
+
+            private Result getResult(Throwable e) {
                 log.error(e.getMessage());
                 return Result.failure(ResultCode.HYSTRIX_ERROR);
             }
