@@ -25,11 +25,7 @@
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
             <version>${spring-cloud-starter-netfilx.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-            <version>${spring-cloud-starter-netfilx.version}</version>
-        </dependency>
+
         <dependency>
             <groupId>com.sole.ray</groupId>
             <artifactId>spring-cloud-internal-common</artifactId>

@@ -19,5 +19,11 @@
             <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
             <version>${spring-cloud-starter-netfilx.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-turbine</artifactId>
+            <version>${spring-cloud-starter-netfilx.version}</version>
+        </dependency>
     </dependencies>
 </project>

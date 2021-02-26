@@ -30,7 +30,12 @@ public enum ResultCode {
     /**
      * 签名错误
      */
-    SIGN_ERROR("0x10005", "sign is not the same");
+    SIGN_ERROR("0x10005", "sign is not the same"),
+
+    /**
+     * 熔断异常
+     */
+    HYSTRIX_ERROR("0x20001", "服务不可用，触发熔断！！");
 
     /**
      * 结果码
