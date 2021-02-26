@@ -1,11 +1,8 @@
 package com.sole.ray.hystrix.service;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.sole.ray.internal.common.bean.result.Result;
 import com.sole.ray.internal.common.entity.Order;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.context.annotation.Primary;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *      建议就把@RequestMapping标记在对应的方法上。
  */
 
-@Primary
-@FeignClient(value = "order-service", fallbackFactory = HystrixFeignOrderServiceFallbackFactory.class)
-//@FeignClient(value = "order-service", fallback = HystrixFeignOrderServiceFallback.class)
+@FeignClient(value = "order-service")
 public interface HystrixFeignOrderService {
 
 
@@ -34,4 +29,7 @@ public interface HystrixFeignOrderService {
 
     @RequestMapping(value = "/order/del", method = RequestMethod.POST)
     Result delOrder(int id);
+
+    @RequestMapping(value = "/order/change", method = RequestMethod.POST)
+    Result changeOrder(int id);
 }

@@ -3,6 +3,7 @@ package com.sole.ray.hystrix.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.netflix.hystrix.exception.HystrixBadRequestException;
+import com.sole.ray.hystrix.service.HystrixFeignOrderService;
 import com.sole.ray.internal.common.anno.ResponseResult;
 import com.sole.ray.internal.common.bean.result.Result;
 import com.sole.ray.internal.common.bean.result.ResultCode;
@@ -24,13 +25,12 @@ import org.springframework.web.client.RestTemplate;
 public class HystrixOrderController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private HystrixFeignOrderService hystrixFeignOrderService;
 
     @HystrixCommand(fallbackMethod = "getOrderFailed")
     @PostMapping("/get")
     public Result getOrder() {
-        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/get", null, Result.class);
-        return responseEntity.getBody();
+        return hystrixFeignOrderService.getOrder();
     }
 
     /**
@@ -48,8 +48,7 @@ public class HystrixOrderController {
             @HystrixProperty(name = "circuitBreaker.enabled", value = "true")})
     @PostMapping("/add")
     public Result addOrder(@RequestBody Order order) {
-        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/add", order, Result.class);
-        return responseEntity.getBody();
+        return hystrixFeignOrderService.addOrder(order);
     }
 
     /**
@@ -57,11 +56,10 @@ public class HystrixOrderController {
      */
     @HystrixCommand(fallbackMethod = "modifyOrderFailed")
     @PostMapping("/modify")
-    public Result modifyOrder() {
+    public Result modifyOrder(@RequestBody Order order) {
         int i = 1 / 0;
 
-        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/modify", null, Result.class);
-        return responseEntity.getBody();
+        return hystrixFeignOrderService.modifyOrder(order);
     }
 
     /**
@@ -77,8 +75,7 @@ public class HystrixOrderController {
             throw new BusinessException(ResultCode.SIGN_ERROR);
         }
 
-        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/del", null, Result.class);
-        return responseEntity.getBody();
+        return hystrixFeignOrderService.delOrder(id);
     }
 
     @HystrixCommand(fallbackMethod = "changeOrderFailed")
@@ -90,8 +87,7 @@ public class HystrixOrderController {
             throw new HystrixBadRequestException(e.getMessage(),e);
         }
 
-        ResponseEntity<Result> responseEntity = restTemplate.postForEntity("http://order-service/order/change", null, Result.class);
-        return responseEntity.getBody();
+        return hystrixFeignOrderService.changeOrder(id);
     }
 
 
@@ -110,7 +106,7 @@ public class HystrixOrderController {
         return Result.failure(ResultCode.HYSTRIX_ERROR);
     }
 
-    private Result modifyOrderFailed(Throwable e) {
+    private Result modifyOrderFailed(Order order,Throwable e) {
         log.error("modify order failed:" + e.getMessage());
         return Result.failure(ResultCode.HYSTRIX_ERROR);
     }
