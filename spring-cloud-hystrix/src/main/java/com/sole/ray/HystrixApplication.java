@@ -3,6 +3,7 @@ package com.sole.ray;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 说明
@@ -14,6 +15,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
  */
 
 @EnableHystrix
+@EnableFeignClients
 @SpringBootApplication
 public class HystrixApplication {
 
