@@ -6,8 +6,8 @@ spring:
       server:
         git:
           uri: https://github.com/SoleRay/spring-cloud-config-repository.git
-          username: SoleRay
-          password: 520rayray
+          username:
+          password:
 
 eureka:
   client:
