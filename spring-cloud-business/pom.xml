@@ -38,6 +38,7 @@
         <module>spring-api-service</module>
         <module>spring-pay-service</module>
         <module>spring-order-service</module>
+        <module>spring-distributed-lock</module>
     </modules>
 
 </project>
