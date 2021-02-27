@@ -29,7 +29,7 @@
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-server</artifactId>
+            <artifactId>spring-cloud-config-client</artifactId>
             <version>2.2.6.RELEASE</version>
         </dependency>
 
@@ -64,6 +64,7 @@
         <module>spring-cloud-business</module>
         <module>spring-cloud-ribbon</module>
         <module>spring-cloud-feign</module>
+        <module>spring-cloud-config</module>
         <module>spring-cloud-hystrix</module>
         <module>spring-cloud-hystrix-dashboard</module>
     </modules>

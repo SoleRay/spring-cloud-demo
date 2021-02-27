@@ -1,13 +1,16 @@
 spring:
   application:
-    name: cloud-config
+    name: config-hystrix
   cloud:
     config:
-      server:
-        git:
-          uri: https://github.com/SoleRay/spring-cloud-config-repository.git
-          username: SoleRay
-          password: 520rayray
+      discovery:
+        enabled: true
+        # config server 的服务id
+        service-id: cloud-config
+      # 环境
+      profile: remote
+      # 分支
+      label: master
 
 eureka:
   client:
@@ -16,5 +19,3 @@ eureka:
     #当有多个eureka的时候，需要配置下面这个，格式：http://${eureka.instance.hostname}:${server.port}/eureka
     service-url:
       defaultZone: http://192.168.0.10:7900/eureka/,http://192.168.0.11:7900/eureka/,http://192.168.0.12:7900/eureka/
-server:
-  port: 7000
