@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class StorageController {
 
     @Autowired
-//    @Qualifier("nolock-service")
-//    @Qualifier("juc-lock-service")
-    @Qualifier("redisson-rlock-service")
-//    @Qualifier("redisson-redlock-service")
+//    @Qualifier("RLockStorageServiceImpl")
+    @Qualifier("jucStorageServiceImpl")
     private StorageService storageService;
 
 

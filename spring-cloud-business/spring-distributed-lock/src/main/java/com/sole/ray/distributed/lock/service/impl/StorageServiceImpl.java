@@ -1,39 +1,27 @@
-package com.sole.ray.distributed.lock.service;
+package com.sole.ray.distributed.lock.service.impl;
 
-import org.redisson.api.RedissonClient;
+import com.sole.ray.distributed.lock.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class AbstractStorageService<Lock> implements StorageService {
-
-    private final AtomicInteger count = new AtomicInteger();
+@Primary
+@Service
+public class StorageServiceImpl implements StorageService {
 
     private static final String STORAGE_KEY = "box:num";
 
-    @Autowired
-    protected RedissonClient redissonClient;
+    private final AtomicInteger count = new AtomicInteger();
 
     @Autowired
-    protected RedisTemplate redisTemplate;
+    private RedisTemplate redisTemplate;
 
     @Override
     public void decreaseStorage(int num) {
-
-        Lock lock = null;
-        try {
-            lock = lock();
-            doDecreaseStorage(num);
-        } finally {
-            if (lock != null) {
-                unlock(lock);
-            }
-        }
-    }
-
-    private void doDecreaseStorage(int num) {
-        int i = count.incrementAndGet() % 20;
+        int i = count.incrementAndGet();
 
         Object value = redisTemplate.opsForValue().get(STORAGE_KEY);
         if (value == null) {
@@ -55,12 +43,6 @@ public abstract class AbstractStorageService<Lock> implements StorageService {
         int newStorageNum = currentStorageNum - num;
         redisTemplate.opsForValue().set(STORAGE_KEY, String.valueOf(newStorageNum));
         System.out.println("第" + i + "个线程，currentStorageNum=" + currentStorageNum + ",newStorageNum=" + newStorageNum);
-    }
 
-    protected Lock lock() {
-        return null;
-    }
-
-    protected void unlock(Lock lock) {
     }
 }
