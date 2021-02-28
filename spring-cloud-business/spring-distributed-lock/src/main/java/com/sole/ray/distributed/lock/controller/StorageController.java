@@ -16,7 +16,8 @@ public class StorageController {
 
     @Autowired
 //    @Qualifier("RLockStorageServiceImpl")
-    @Qualifier("jucStorageServiceImpl")
+//    @Qualifier("jucStorageServiceImpl")
+    @Qualifier("redLockStorageServiceImpl")
     private StorageService storageService;
 
 
