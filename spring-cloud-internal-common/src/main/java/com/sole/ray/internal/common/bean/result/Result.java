@@ -44,6 +44,14 @@ public class Result<T> extends AbstractResult{
 		this.data = data;
 	}
 
+	public boolean isSuccess(){
+		return "0".equals(getCode());
+	}
+
+	public boolean isInternalError(){
+		return "0x10001".equals(getCode());
+	}
+
 	public static Result success(){
 		return new Result(ResultCode.SUCCESS);
 	}
