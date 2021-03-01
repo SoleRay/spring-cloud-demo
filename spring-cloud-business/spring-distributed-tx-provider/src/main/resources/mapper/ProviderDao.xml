@@ -48,9 +48,14 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tx_provider.provider(p_name, age, ismale)
-        values (#{pName}, #{age}, #{ismale})
+<!--    <insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert into tx_provider.provider(p_name, age, ismale)-->
+<!--        values (#{pName}, #{age}, #{ismale})-->
+<!--    </insert>-->
+
+    <insert id="insert" >
+        insert into tx_provider.provider(id, p_name, age, ismale)
+        values (#{id}, #{pName}, #{age}, #{ismale})
     </insert>
 
     <!--通过主键修改数据-->
