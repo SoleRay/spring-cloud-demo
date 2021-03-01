@@ -28,8 +28,8 @@ public class ProviderController {
     }
 
 
-    @GetMapping("/add")
-    public void addProvider(Provider provider) {
+    @PostMapping("/add")
+    public void addProvider(@RequestBody Provider provider) {
         providerService.insert(provider);
     }
 
