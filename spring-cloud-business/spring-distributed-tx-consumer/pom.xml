@@ -12,5 +12,17 @@
     <version>1.0.0</version>
     <name>spring-distributed-tx-consumer</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>2.2.6.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sole.ray</groupId>
+            <artifactId>spring-distributed-tx-provider</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>

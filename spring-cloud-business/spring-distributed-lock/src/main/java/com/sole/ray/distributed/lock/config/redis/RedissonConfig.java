@@ -1,4 +1,4 @@
-package com.sole.ray.distributed.lock.config;
+package com.sole.ray.distributed.lock.config.redis;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

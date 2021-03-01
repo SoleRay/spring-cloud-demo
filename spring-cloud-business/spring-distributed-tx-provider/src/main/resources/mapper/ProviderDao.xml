@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sole.ray.distributed.tx.provider.dao.ProviderDao">
+
+    <resultMap id="BaseResultMap" type="com.sole.ray.distributed.tx.provider.entity.Provider">
+        <!--@Table provider-->
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="pName" column="p_name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="ismale" column="ismale" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, p_name, age, ismale
+        from tx_provider.provider
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, p_name, age, ismale
+        from tx_provider.provider
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, p_name, age, ismale
+        from tx_provider.provider
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="pName != null and pName != ''">
+                and p_name = #{pName}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+            <if test="ismale != null">
+                and ismale = #{ismale}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tx_provider.provider(p_name, age, ismale)
+        values (#{pName}, #{age}, #{ismale})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tx_provider.provider
+        <set>
+            <if test="pName != null and pName != ''">
+                p_name = #{pName},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="ismale != null">
+                ismale = #{ismale},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from tx_provider.provider where id = #{id}
+    </delete>
+
+</mapper>
