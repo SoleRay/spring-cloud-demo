@@ -24,8 +24,7 @@ public class ConsumerController {
     @Autowired
     private ConsumerService consumerService;
 
-    @Autowired
-    private FeignProviderService feignProviderService;
+
 
     @GetMapping("/get")
     public Consumer get(Integer id) {
@@ -34,8 +33,7 @@ public class ConsumerController {
 
     @PostMapping("/doBusiness")
     public void doBusiness(@RequestBody Business business) {
-        consumerService.insert(business.getConsumer());
-        feignProviderService.addProvider(business.getProvider());
+        consumerService.doBusiness(business);
     }
 
 }

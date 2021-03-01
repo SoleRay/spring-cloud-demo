@@ -1,6 +1,8 @@
 package com.sole.ray.distributed.tx.consumer.service;
 
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
+import com.sole.ray.distributed.tx.consumer.param.Business;
+
 import java.util.List;
 
 /**
@@ -52,4 +54,5 @@ public interface ConsumerService {
      */
     boolean deleteById(Integer id);
 
+    void doBusiness(Business business);
 }

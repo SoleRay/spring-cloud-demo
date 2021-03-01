@@ -1,10 +1,14 @@
 package com.sole.ray.distributed.tx.consumer.service.impl;
 
+import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
+import com.sole.ray.distributed.tx.consumer.feign.FeignProviderService;
+import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +24,9 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Autowired
     private ConsumerDao consumerDao;
+
+    @Autowired
+    private FeignProviderService feignProviderService;
 
     /**
      * 通过ID查询单条数据
@@ -77,5 +84,13 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public boolean deleteById(Integer id) {
         return this.consumerDao.deleteById(id) > 0;
+    }
+
+    @Transactional
+    @LcnTransaction
+    @Override
+    public void doBusiness(Business business) {
+        consumerDao.insert(business.getConsumer());
+        feignProviderService.addProvider(business.getProvider());
     }
 }
