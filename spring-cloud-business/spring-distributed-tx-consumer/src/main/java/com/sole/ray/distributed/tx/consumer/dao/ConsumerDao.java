@@ -1,6 +1,7 @@
 package com.sole.ray.distributed.tx.consumer.dao;
 
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-03-01 11:26:00
  */
+@Mapper
 public interface ConsumerDao {
 
     /**

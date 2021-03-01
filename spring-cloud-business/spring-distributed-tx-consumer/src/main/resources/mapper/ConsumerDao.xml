@@ -29,7 +29,7 @@
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="BaseResultMap">
         select
-          id, c_name, age, ismale
+        id, c_name, age, ismale
         from tx_consumer.consumer
         <where>
             <if test="id != null">
@@ -48,9 +48,14 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into tx_consumer.consumer(c_name, age, ismale)
-        values (#{cName}, #{age}, #{ismale})
+    <!--    <insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
+    <!--        insert into tx_consumer.consumer(c_name, age, ismale)-->
+    <!--        values (#{cName}, #{age}, #{ismale})-->
+    <!--    </insert>-->
+
+    <insert id="insert">
+        insert into tx_consumer.consumer(id, c_name, age, ismale)
+        values (#{id}, #{cName}, #{age}, #{ismale})
     </insert>
 
     <!--通过主键修改数据-->
