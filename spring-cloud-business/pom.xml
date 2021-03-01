@@ -66,8 +66,6 @@
 
     <modules>
         <module>spring-api-service</module>
-        <module>spring-pay-service</module>
-        <module>spring-order-service</module>
         <module>spring-distributed-lock</module>
         <module>spring-distributed-tx-consumer</module>
         <module>spring-distributed-tx-provider</module>
