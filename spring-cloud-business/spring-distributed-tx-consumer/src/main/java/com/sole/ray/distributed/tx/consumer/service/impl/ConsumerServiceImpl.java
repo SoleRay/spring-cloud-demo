@@ -10,6 +10,7 @@ import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -115,5 +116,4 @@ public class ConsumerServiceImpl implements ConsumerService {
     public void cancelDoBusiness(Business business) {
         System.out.println("consumer:cancel tcc");
     }
-
 }

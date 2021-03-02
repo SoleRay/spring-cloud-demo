@@ -7,6 +7,7 @@ import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.List;

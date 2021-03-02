@@ -1,5 +1,6 @@
 package com.sole.ray.distributed.tx.provider.controller;
 
+import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
 import com.sole.ray.internal.common.anno.ResponseResult;
