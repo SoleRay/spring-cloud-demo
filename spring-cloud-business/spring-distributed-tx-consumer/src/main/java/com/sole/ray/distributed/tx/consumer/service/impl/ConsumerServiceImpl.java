@@ -1,11 +1,14 @@
 package com.sole.ray.distributed.tx.consumer.service.impl;
 
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
+import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
 import com.sole.ray.distributed.tx.consumer.feign.FeignProviderService;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
+import com.sole.ray.internal.common.bean.result.Result;
+import com.sole.ray.internal.common.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +60,7 @@ public class ConsumerServiceImpl implements ConsumerService {
      * @param consumer 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public Consumer insert(Consumer consumer) {
         this.consumerDao.insert(consumer);
@@ -69,6 +73,7 @@ public class ConsumerServiceImpl implements ConsumerService {
      * @param consumer 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public Consumer update(Consumer consumer) {
         this.consumerDao.update(consumer);
@@ -81,16 +86,17 @@ public class ConsumerServiceImpl implements ConsumerService {
      * @param id 主键
      * @return 是否成功
      */
+    @Transactional
     @Override
     public boolean deleteById(Integer id) {
         return this.consumerDao.deleteById(id) > 0;
     }
 
-    @Transactional
-    @LcnTransaction
     @Override
     public void doBusiness(Business business) {
-        consumerDao.insert(business.getConsumer());
-        feignProviderService.addProvider(business.getProvider());
+//        consumerDao.insert(business.getConsumer());
+//        feignProviderService.addProvider(business.getProvider());
     }
+
+
 }

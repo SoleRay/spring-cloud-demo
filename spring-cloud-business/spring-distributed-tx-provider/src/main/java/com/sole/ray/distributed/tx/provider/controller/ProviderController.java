@@ -1,8 +1,11 @@
 package com.sole.ray.distributed.tx.provider.controller;
 
+import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
+import com.sole.ray.internal.common.anno.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,6 +16,7 @@ import javax.annotation.Resource;
  * @author SoleRay
  * @since 2021-03-01 11:35:42
  */
+@ResponseResult
 @RestController
 @RequestMapping("/provider")
 public class ProviderController {
@@ -28,9 +32,18 @@ public class ProviderController {
     }
 
 
+    @Transactional
+    @TccTransaction
     @PostMapping("/add")
     public void addProvider(@RequestBody Provider provider) {
         providerService.insert(provider);
     }
 
+    public void confirmInsert(@RequestBody Provider provider){
+        System.out.println("OK");
+    }
+
+    public void cancelInsert(@RequestBody Provider provider){
+        System.out.println("cancelInsert");
+    }
 }

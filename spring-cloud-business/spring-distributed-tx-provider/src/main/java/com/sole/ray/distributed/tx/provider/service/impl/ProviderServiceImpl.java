@@ -4,6 +4,7 @@ import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -48,6 +49,7 @@ public class ProviderServiceImpl implements ProviderService {
      * @param provider 实例对象
      * @return 实例对象
      */
+    @Transactional
     @Override
     public Provider insert(Provider provider) {
         this.providerDao.insert(provider);

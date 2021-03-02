@@ -14,6 +14,11 @@
  Date: 01/03/2021 09:53:01
 */
 
+CREATE DATABASE IF NOT EXISTS `tx_provider`
+DEFAULT CHARACTER SET utf8mb4
+DEFAULT COLLATE utf8mb4_general_ci;
+USE `tx_provider`;
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

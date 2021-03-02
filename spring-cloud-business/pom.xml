@@ -69,6 +69,7 @@
         <module>spring-distributed-lock</module>
         <module>spring-distributed-tx-consumer</module>
         <module>spring-distributed-tx-provider</module>
+        <module>spring-distributed-tx-tm</module>
     </modules>
 
 </project>

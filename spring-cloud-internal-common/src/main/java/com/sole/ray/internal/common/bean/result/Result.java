@@ -7,6 +7,7 @@
  */
 package com.sole.ray.internal.common.bean.result;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,10 +45,12 @@ public class Result<T> extends AbstractResult{
 		this.data = data;
 	}
 
+	@JsonIgnore
 	public boolean isSuccess(){
 		return "0".equals(getCode());
 	}
 
+	@JsonIgnore
 	public boolean isInternalError(){
 		return "0x10001".equals(getCode());
 	}
