@@ -1,5 +1,6 @@
 package com.sole.ray.distributed.tx.provider.service.impl;
 
+import com.codingapi.txlcn.tc.annotation.LcnTransaction;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
@@ -49,7 +50,9 @@ public class ProviderServiceImpl implements ProviderService {
      * @param provider 实例对象
      * @return 实例对象
      */
+
     @Transactional
+    @LcnTransaction
     @Override
     public Provider insert(Provider provider) {
         this.providerDao.insert(provider);
