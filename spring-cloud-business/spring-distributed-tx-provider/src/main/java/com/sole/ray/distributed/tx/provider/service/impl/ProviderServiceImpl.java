@@ -5,6 +5,7 @@ import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
