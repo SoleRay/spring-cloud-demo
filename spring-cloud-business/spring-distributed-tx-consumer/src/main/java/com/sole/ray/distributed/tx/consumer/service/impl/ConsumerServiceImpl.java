@@ -1,6 +1,7 @@
 package com.sole.ray.distributed.tx.consumer.service.impl;
 
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
+import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
 import com.sole.ray.distributed.tx.consumer.feign.FeignProviderService;
@@ -98,7 +99,7 @@ public class ConsumerServiceImpl implements ConsumerService {
      *      若provider发生异常后，doBussiness方法本身不主动抛出异常，则consumerDao.insert()不会回滚。
      */
     @Transactional
-    @LcnTransaction
+    @TccTransaction
     @Override
     public void doBusiness(Business business) {
         feignProviderService.addProvider(business.getProvider());
@@ -107,5 +108,12 @@ public class ConsumerServiceImpl implements ConsumerService {
         int x = 1/0;
     }
 
+    public void confirmDoBusiness(Business business) {
+        System.out.println("consumer:confirm tcc");
+    }
+
+    public void cancelDoBusiness(Business business) {
+        System.out.println("consumer:cancel tcc");
+    }
 
 }

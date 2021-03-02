@@ -1,6 +1,7 @@
 package com.sole.ray.distributed.tx.provider.service.impl;
 
 import com.codingapi.txlcn.tc.annotation.LcnTransaction;
+import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
@@ -52,10 +53,20 @@ public class ProviderServiceImpl implements ProviderService {
      */
 
     @Transactional
-    @LcnTransaction
+    @TccTransaction
     @Override
     public Provider insert(Provider provider) {
         this.providerDao.insert(provider);
+        return provider;
+    }
+
+    public Provider confirmInsert(Provider provider) {
+        System.out.println("provider:confirm tcc");
+        return provider;
+    }
+
+    public Provider cancelInsert(Provider provider) {
+        System.out.println("provider:cancel tcc");
         return provider;
     }
 
