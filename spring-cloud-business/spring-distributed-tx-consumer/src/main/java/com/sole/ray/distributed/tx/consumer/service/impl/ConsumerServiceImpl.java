@@ -88,6 +88,15 @@ public class ConsumerServiceImpl implements ConsumerService {
         return this.consumerDao.deleteById(id) > 0;
     }
 
+    /**
+     * 关于LCN异常回滚机制的说明，以provider和consumer为例
+     *    1.consumer本身发生异常
+     *      1.1 provider已经执行，无论是否成功，都回滚
+     *      1.2 provider尚未执行，不执行。
+     *    2.provider发生异常
+     *      无论provider处于doBussiness的哪个位置。都必须获取它的结果，根据结果手动抛出异常
+     *      若provider发生异常后，doBussiness方法本身不主动抛出异常，则consumerDao.insert()不会回滚。
+     */
     @Transactional
     @LcnTransaction
     @Override
