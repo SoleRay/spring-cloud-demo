@@ -1,6 +1,5 @@
 package com.sole.ray.distributed.tx.consumer.controller;
 
-import com.codingapi.txlcn.tc.annotation.TccTransaction;
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
