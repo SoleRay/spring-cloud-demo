@@ -7,6 +7,7 @@ import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
 import com.sole.ray.distributed.tx.consumer.feign.FeignProviderService;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
+import com.sole.ray.internal.common.bean.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,22 +92,26 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     /**
-     * 关于LCN异常回滚机制的说明，以provider和consumer为例
+     * 关于TCC异常回滚机制的说明，以provider和consumer为例
      *    1.consumer本身发生异常
      *      1.1 provider已经执行，无论是否成功，都回滚
      *      1.2 provider尚未执行，不执行。
      *    2.provider发生异常
      *      无论provider处于doBussiness的哪个位置。都必须获取它的结果，根据结果手动抛出异常
      *      若provider发生异常后，doBussiness方法本身不主动抛出异常，则consumerDao.insert()不会回滚。
+     *
+     *    这和LCN是一样的，可能是因为用的是同一组件的缘故
      */
     @Transactional
     @TccTransaction
     @Override
     public void doBusiness(Business business) {
-        feignProviderService.addProvider(business.getProvider());
 
         consumerDao.insert(business.getConsumer());
-        int x = 1/0;
+        Result result = feignProviderService.addProvider(business.getProvider());
+        if(!result.isSuccess()){
+            throw new RuntimeException(result.getMessage());
+        }
     }
 
     public void confirmDoBusiness(Business business) {
