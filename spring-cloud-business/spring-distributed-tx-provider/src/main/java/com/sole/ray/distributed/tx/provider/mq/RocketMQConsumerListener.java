@@ -27,6 +27,14 @@ public class RocketMQConsumerListener implements TransactionListener {
      *
      * 当本服务使用MQClient的TransactionMQProducer向MQ发送half msg成功后
      * 回调此方法。
+     *
+     * 关于返回结果
+     *     1.COMMIT_MESSAGE：说明当前事务执行成功，half msg的状态将会变为成功。可以供TX-Consumer消费
+     *     2.ROLLBACK_MESSAGE，说明当前事务执行失败，执行异常回滚。half msg的状态将会变为失败。此消息将不能被TX-Consumer消费
+     *     3.UNKNOW，不清楚当前事务执行的情况，可能是网络原因引起的。此时MQ将启动回查机制，调用checkLocalTransaction进行回查。
+     *       3.1 如果回查时发生事务执行成功，则返回COMMIT_MESSAGE状态，half msg的状态将会变为成功。可以供TX-Consumer消费
+     *       3.2 如果回查时还是不清楚事务是否已经执行，将继续返回UNKNOW状态，继续等待回查。回查一定次数以后仍然无法确定，将停止回查。
+     *
      */
     @Override
     public LocalTransactionState executeLocalTransaction(Message message, Object o) {
@@ -39,8 +47,8 @@ public class RocketMQConsumerListener implements TransactionListener {
             Provider provider = JsonUtil.convertJsonToJavaObject(json, Provider.class);
             providerService.addProvider(provider,message.getTransactionId());
 
-            state = LocalTransactionState.COMMIT_MESSAGE;
-//            state = LocalTransactionState.UNKNOW;
+//            state = LocalTransactionState.COMMIT_MESSAGE;
+            state = LocalTransactionState.UNKNOW;
         } catch (Exception e) {
             log.info("执行本地事务失败...");
             log.error(e.getMessage(),e);
