@@ -1,8 +1,13 @@
 package com.sole.ray.distributed.tx.provider.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.sole.ray.distributed.tx.provider.config.ProducerConstant;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
+import com.sole.ray.distributed.tx.provider.mq.TransactionProducer;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
+import com.sole.ray.distributed.tx.provider.service.TransactionLogService;
+import org.apache.rocketmq.client.exception.MQClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +26,12 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Autowired
     private ProviderDao providerDao;
+
+    @Autowired
+    private TransactionProducer producer;
+
+    @Autowired
+    private TransactionLogService transactionLogService;
 
     /**
      * 通过ID查询单条数据
@@ -94,7 +105,13 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Transactional
     @Override
-    public void addProvider(Provider provider) {
+    public void addProvider(Provider provider){
         providerDao.insert(provider);
+
+        try {
+            producer.send(JSON.toJSONString(provider), ProducerConstant.PRODUCE_TOPIC);
+        } catch (MQClientException e) {
+            throw new RuntimeException(e.getErrorMessage());
+        }
     }
 }
