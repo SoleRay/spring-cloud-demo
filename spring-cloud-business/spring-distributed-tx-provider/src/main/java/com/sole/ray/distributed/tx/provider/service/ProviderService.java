@@ -53,4 +53,6 @@ public interface ProviderService {
     boolean deleteById(Integer id);
 
     void addProvider(Provider provider);
+
+    void addProvider(Provider provider,String transactionId);
 }

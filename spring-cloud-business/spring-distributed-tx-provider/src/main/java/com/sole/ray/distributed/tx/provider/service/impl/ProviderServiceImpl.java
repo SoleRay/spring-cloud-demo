@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.sole.ray.distributed.tx.provider.config.ProducerConstant;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
+import com.sole.ray.distributed.tx.provider.entity.TransactionLog;
 import com.sole.ray.distributed.tx.provider.mq.TransactionProducer;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
 import com.sole.ray.distributed.tx.provider.service.TransactionLogService;
@@ -103,15 +104,34 @@ public class ProviderServiceImpl implements ProviderService {
         return this.providerDao.deleteById(id) > 0;
     }
 
-    @Transactional
+    /**
+     *  这个方法不执行具体业务逻辑，只是向MQ发消息，将请求参数作为数据发送过去
+     */
     @Override
     public void addProvider(Provider provider){
-        providerDao.insert(provider);
 
         try {
             producer.send(JSON.toJSONString(provider), ProducerConstant.PRODUCE_TOPIC);
         } catch (MQClientException e) {
             throw new RuntimeException(e.getErrorMessage());
         }
+    }
+
+    /**
+     *  TransactionListener在执行executeLocalTransaction时，会调用此方法
+     *  这个方法才是真正执行业务逻辑的方法。
+     */
+    @Transactional
+    @Override
+    public void addProvider(Provider provider, String transactionId) {
+        //1.插入Provider对象
+        providerDao.insert(provider);
+
+        //2.写入事务日志
+        TransactionLog log = new TransactionLog();
+        log.setId(transactionId);
+        log.setBusiness("provider");
+        log.setForeignKey(provider.getId());
+        transactionLogService.insert(log);
     }
 }

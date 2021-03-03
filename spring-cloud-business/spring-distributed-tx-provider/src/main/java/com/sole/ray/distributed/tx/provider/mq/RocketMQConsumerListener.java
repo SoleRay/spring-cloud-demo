@@ -38,6 +38,7 @@ public class RocketMQConsumerListener implements TransactionListener {
 //            state = LocalTransactionState.UNKNOW;
         } catch (Exception e) {
             log.info("执行本地事务失败...");
+            log.error(e.getMessage(),e);
             state = LocalTransactionState.ROLLBACK_MESSAGE;
         }
 
