@@ -23,6 +23,11 @@ public class RocketMQConsumerListener implements TransactionListener {
     @Autowired
     private TransactionLogService transactionLogService;
 
+    /**
+     *
+     * 当本服务使用MQClient的TransactionMQProducer向MQ发送half msg成功后
+     * 回调此方法。
+     */
     @Override
     public LocalTransactionState executeLocalTransaction(Message message, Object o) {
 
@@ -32,7 +37,7 @@ public class RocketMQConsumerListener implements TransactionListener {
         try {
             String json = new String(message.getBody());
             Provider provider = JsonUtil.convertJsonToJavaObject(json, Provider.class);
-            providerService.addProvider(provider);
+            providerService.addProvider(provider,message.getTransactionId());
 
             state = LocalTransactionState.COMMIT_MESSAGE;
 //            state = LocalTransactionState.UNKNOW;
@@ -47,13 +52,14 @@ public class RocketMQConsumerListener implements TransactionListener {
 
     @Override
     public LocalTransactionState checkLocalTransaction(MessageExt messageExt) {
-        log.info("开始回查本地事务...");
+        log.info("开始回查本地事务:"+messageExt.getTransactionId());
         LocalTransactionState state;
 
-        String transactionId = messageExt.getTransactionId();
-        if (transactionLogService.selectById(transactionId) > 0) {
+        if (transactionLogService.selectById(messageExt.getTransactionId()) > 0) {
+            log.info("ok!!!!");
             state = LocalTransactionState.COMMIT_MESSAGE;
         } else {
+            log.info("unknow!!!!!");
             state = LocalTransactionState.UNKNOW;
         }
 

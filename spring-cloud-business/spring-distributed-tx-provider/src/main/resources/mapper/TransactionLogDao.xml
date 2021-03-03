@@ -50,9 +50,14 @@
     </select>
 
     <!--新增所有列-->
+<!--    <insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert into transaction_log(business, foreign_key)-->
+<!--        values (#{business}, #{foreignKey})-->
+<!--    </insert>-->
+
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into transaction_log(business, foreign_key)
-        values (#{business}, #{foreignKey})
+        insert into transaction_log(id, business, foreign_key)
+        values (#{id}, #{business}, #{foreignKey})
     </insert>
 
     <!--通过主键修改数据-->

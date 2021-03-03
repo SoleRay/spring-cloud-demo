@@ -105,7 +105,10 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     /**
-     *  这个方法不执行具体业务逻辑，只是向MQ发消息，将请求参数作为数据发送过去
+     *  这是Rocket-mq 事务流程的第一步：向MQ发送half msg
+     *  这一步不会执行具体的业务逻辑，在发送half msg成功后
+     *  会回调TransactionListener#executeLocalTransaction()，在这里才调用具体的业务逻辑的。
+     *
      */
     @Override
     public void addProvider(Provider provider){
