@@ -23,6 +23,4 @@ mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
   type-aliases-package: classpath:com.sole.ray.distributed.tx.provider.entity.*
 
-seata:
-  service:
-    grouplist: 192.168.0.10:8091
+rocketmq:

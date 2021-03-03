@@ -26,3 +26,4 @@ seata:
   service:
     grouplist: 192.168.0.10:8091
     disable-global-transaction: false
+
