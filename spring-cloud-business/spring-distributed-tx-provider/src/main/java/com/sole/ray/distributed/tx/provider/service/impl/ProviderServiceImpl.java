@@ -1,12 +1,16 @@
 package com.sole.ray.distributed.tx.provider.service.impl;
 
+import com.netflix.discovery.converters.Auto;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
+import com.sole.ray.distributed.tx.provider.service.ProviderTccService;
+import io.seata.spring.annotation.GlobalTransactional;
+import org.checkerframework.checker.units.qual.A;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,8 +21,13 @@ import java.util.List;
  */
 @Service
 public class ProviderServiceImpl implements ProviderService {
-    @Resource
+
+
+    @Autowired
     private ProviderDao providerDao;
+
+    @Autowired
+    private ProviderTccService providerTccService;
 
     /**
      * 通过ID查询单条数据
@@ -88,5 +97,12 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public boolean deleteById(Integer id) {
         return this.providerDao.deleteById(id) > 0;
+    }
+
+
+    @GlobalTransactional
+    @Override
+    public void addProvider(Provider provider) {
+        providerTccService.addProvider(provider);
     }
 }

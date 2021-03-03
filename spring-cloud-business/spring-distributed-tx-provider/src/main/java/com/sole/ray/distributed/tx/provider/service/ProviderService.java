@@ -52,4 +52,5 @@ public interface ProviderService {
      */
     boolean deleteById(Integer id);
 
+    void addProvider(Provider provider);
 }

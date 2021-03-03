@@ -2,6 +2,7 @@ package com.sole.ray.distributed.tx.consumer.service;
 
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.param.Business;
+import io.seata.rm.tcc.api.BusinessActionContext;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2021-03-01 11:26:00
  */
+
 public interface ConsumerService {
 
     /**
