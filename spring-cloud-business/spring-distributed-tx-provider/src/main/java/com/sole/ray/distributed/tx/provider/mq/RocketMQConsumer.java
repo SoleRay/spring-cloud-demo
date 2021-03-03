@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
-@Component
+//@Component
 public class RocketMQConsumer {
 
     private static final String CONSUMER_GROUP = "consumer-group";
