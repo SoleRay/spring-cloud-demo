@@ -2,11 +2,12 @@ package com.sole.ray.distributed.tx.provider.config.props;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Data
-@Component
+@Configuration
 @PropertySource(value = "classpath:properties/rocket_mq.properties")
 public class RocketMQProperties {
 
