@@ -31,5 +31,6 @@ public class ProviderController {
     @PostMapping("/add")
     public void addProvider(@RequestBody Provider provider) {
         providerService.insert(provider);
+        int x = 1/0;
     }
 }

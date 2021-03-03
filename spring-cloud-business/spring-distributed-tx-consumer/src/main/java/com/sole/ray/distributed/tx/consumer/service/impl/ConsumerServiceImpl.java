@@ -5,6 +5,7 @@ import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
 import com.sole.ray.distributed.tx.consumer.feign.FeignProviderService;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
+import com.sole.ray.internal.common.bean.result.Result;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,13 +90,22 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
 
-    @GlobalTransactional
+    /**
+     * Seata的AT模式和LCN一样：
+     *      调用服务提供者的方法，如果出现异常，必须对其进行处理，并在当前方法抛出异常，才能保证事务的一致性。
+     *
+     */
+    @GlobalTransactional(rollbackFor = Exception.class)
     @Override
     public void doBusiness(Business business) {
-        feignProviderService.addProvider(business.getProvider());
-
         consumerDao.insert(business.getConsumer());
-        int x = 1/0;
+        Result result = feignProviderService.addProvider(business.getProvider());
+        if(!result.isSuccess()){
+            throw new RuntimeException(result.getMessage());
+        }
+
+
+//        int x = 1/0;
     }
 
 }
