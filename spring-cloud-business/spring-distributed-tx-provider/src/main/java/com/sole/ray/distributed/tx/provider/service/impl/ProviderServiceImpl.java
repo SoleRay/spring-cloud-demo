@@ -1,13 +1,10 @@
 package com.sole.ray.distributed.tx.provider.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.sole.ray.distributed.tx.provider.config.ProducerConstant;
+import com.sole.ray.distributed.tx.provider.config.MQConsumerConstant;
 import com.sole.ray.distributed.tx.provider.entity.Provider;
 import com.sole.ray.distributed.tx.provider.dao.ProviderDao;
-import com.sole.ray.distributed.tx.provider.entity.TransactionLog;
-import com.sole.ray.distributed.tx.provider.mq.TransactionProducer;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
-import com.sole.ray.distributed.tx.provider.service.TransactionLogService;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +24,6 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Autowired
     private ProviderDao providerDao;
-
-    @Autowired
-    private TransactionProducer producer;
-
-    @Autowired
-    private TransactionLogService transactionLogService;
 
     /**
      * 通过ID查询单条数据
@@ -104,37 +95,9 @@ public class ProviderServiceImpl implements ProviderService {
         return this.providerDao.deleteById(id) > 0;
     }
 
-    /**
-     *  这是Rocket-mq 事务流程的第一步：向MQ发送half msg
-     *  这一步不会执行具体的业务逻辑，在发送half msg成功后
-     *  会回调TransactionListener#executeLocalTransaction()，在这里才调用具体的业务逻辑的。
-     *
-     */
-    @Override
-    public void addProvider(Provider provider){
-
-        try {
-            producer.send(JSON.toJSONString(provider), ProducerConstant.PRODUCE_TOPIC);
-        } catch (MQClientException e) {
-            throw new RuntimeException(e.getErrorMessage());
-        }
-    }
-
-    /**
-     *  TransactionListener在执行executeLocalTransaction时，会调用此方法
-     *  这个方法才是真正执行业务逻辑的方法。
-     */
     @Transactional
     @Override
-    public void addProvider(Provider provider, String transactionId) {
-        //1.插入Provider对象
+    public void addProvider(Provider provider){
         providerDao.insert(provider);
-
-        //2.写入事务日志
-        TransactionLog log = new TransactionLog();
-        log.setId(transactionId);
-        log.setBusiness("provider");
-        log.setForeignKey(provider.getId());
-        transactionLogService.insert(log);
     }
 }

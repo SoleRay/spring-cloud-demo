@@ -1,6 +1,7 @@
-package com.sole.ray.distributed.tx.provider.mq;
+package com.sole.ray.distributed.tx.consumer.mq;
 
-import com.sole.ray.distributed.tx.provider.config.props.RocketMQProperties;
+import com.sole.ray.distributed.tx.consumer.config.MQProduerConstant;
+import com.sole.ray.distributed.tx.consumer.config.props.MQProducerProperties;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.apache.rocketmq.client.producer.TransactionSendResult;
@@ -14,19 +15,17 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class TransactionProducer {
+public class MQProducer {
     
-    private static final String PRODUCER_GROUP = "producer_group";
-
     // 事务消息
     private TransactionMQProducer producer;
 
     //用于执行本地事务和事务状态回查的监听器
     @Autowired
-    private RocketMQConsumerListener rocketMQConsumerListener;
+    private TxConsumerListener txConsumerListener;
 
     @Autowired
-    private RocketMQProperties rocketMQProperties;
+    private MQProducerProperties mqProducerProperties;
 
     //执行任务的线程池
     private ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 60,
@@ -34,11 +33,11 @@ public class TransactionProducer {
             
     @PostConstruct
     public void init(){
-        producer = new TransactionMQProducer(PRODUCER_GROUP);
-        producer.setNamesrvAddr(rocketMQProperties.getNamesrvAddr());
+        producer = new TransactionMQProducer(MQProduerConstant.MQ_PRODUCER_GROUP);
+        producer.setNamesrvAddr(mqProducerProperties.getNamesrvAddr());
         producer.setSendMsgTimeout(Integer.MAX_VALUE);
         producer.setExecutorService(executor);
-        producer.setTransactionListener(rocketMQConsumerListener);
+        producer.setTransactionListener(txConsumerListener);
         this.start();
     }
 

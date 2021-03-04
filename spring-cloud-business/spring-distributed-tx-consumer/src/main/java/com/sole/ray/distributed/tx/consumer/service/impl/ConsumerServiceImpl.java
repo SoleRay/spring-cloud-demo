@@ -5,7 +5,7 @@ import com.sole.ray.distributed.tx.consumer.config.MQProduerConstant;
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
 import com.sole.ray.distributed.tx.consumer.entity.TransactionLog;
-import com.sole.ray.distributed.tx.consumer.mq.MQTransactionProducer;
+import com.sole.ray.distributed.tx.consumer.mq.MQProducer;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
 import com.sole.ray.distributed.tx.consumer.service.TransactionLogService;
@@ -29,7 +29,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     private ConsumerDao consumerDao;
 
     @Autowired
-    private MQTransactionProducer producer;
+    private MQProducer producer;
 
     @Autowired
     private TransactionLogService transactionLogService;
@@ -95,6 +95,13 @@ public class ConsumerServiceImpl implements ConsumerService {
         return this.consumerDao.deleteById(id) > 0;
     }
 
+
+    /**
+     *  这是Rocket-mq 事务流程的第一步：向MQ发送half msg
+     *  这一步不会执行具体的业务逻辑，在发送half msg成功后
+     *  会回调TransactionListener#executeLocalTransaction()，在这里才调用具体的业务逻辑的。
+     *
+     */
     @Override
     public void doBusiness(Business business){
         try {
@@ -104,6 +111,10 @@ public class ConsumerServiceImpl implements ConsumerService {
         }
     }
 
+    /**
+     *  TransactionListener在执行executeLocalTransaction时，会调用此方法
+     *  这个方法才是真正执行业务逻辑的方法。
+     */
     @Transactional
     @Override
     public void addConsumer(Consumer consumer,String transactionId) {
