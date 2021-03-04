@@ -1,6 +1,6 @@
 package com.sole.ray.distributed.tx.consumer.service;
 
-import com.sole.ray.distributed.tx.provider.entity.TransactionLog;
+import com.sole.ray.distributed.tx.consumer.entity.TransactionLog;
 
 import java.util.List;
 

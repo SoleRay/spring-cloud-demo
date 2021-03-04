@@ -1,6 +1,6 @@
 package com.sole.ray.distributed.tx.consumer.dao;
 
-import com.sole.ray.distributed.tx.provider.entity.TransactionLog;
+import com.sole.ray.distributed.tx.consumer.entity.TransactionLog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -4,10 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.sole.ray.distributed.tx.consumer.config.MQProduerConstant;
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
+import com.sole.ray.distributed.tx.consumer.entity.TransactionLog;
 import com.sole.ray.distributed.tx.consumer.mq.MQTransactionProducer;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
-import com.sole.ray.distributed.tx.provider.config.ProducerConstant;
+import com.sole.ray.distributed.tx.consumer.service.TransactionLogService;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Autowired
     private MQTransactionProducer producer;
+
+    @Autowired
+    private TransactionLogService transactionLogService;
 
     /**
      * 通过ID查询单条数据
@@ -104,5 +108,11 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public void addConsumer(Consumer consumer,String transactionId) {
         consumerDao.insert(consumer);
+
+        TransactionLog log = new TransactionLog();
+        log.setId(transactionId);
+        log.setBusiness("consumer");
+        log.setForeignKey(consumer.getId());
+        transactionLogService.insert(log);
     }
 }

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@PropertySource(value = "classpath:properties/rocket_mq.properties")
-public class RocketMQProperties {
+@PropertySource(value = "classpath:properties/mq_producer.properties")
+public class MQProducerProperties {
 
     @Value("${mq.namesrv.host}")
     private String namesrvHost;

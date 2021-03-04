@@ -1,6 +1,6 @@
 package com.sole.ray.distributed.tx.consumer.mq;
 
-import com.sole.ray.distributed.tx.provider.config.props.RocketMQProperties;
+import com.sole.ray.distributed.tx.consumer.config.props.MQProducerProperties;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;
 import org.apache.rocketmq.client.producer.TransactionSendResult;
@@ -26,7 +26,7 @@ public class MQTransactionProducer {
     private TxConsumerListener txConsumerListener;
 
     @Autowired
-    private RocketMQProperties rocketMQProperties;
+    private MQProducerProperties mqProducerProperties;
 
     //执行任务的线程池
     private ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 60,
@@ -35,7 +35,7 @@ public class MQTransactionProducer {
     @PostConstruct
     public void init(){
         producer = new TransactionMQProducer(PRODUCER_GROUP);
-        producer.setNamesrvAddr(rocketMQProperties.getNamesrvAddr());
+        producer.setNamesrvAddr(mqProducerProperties.getNamesrvAddr());
         producer.setSendMsgTimeout(Integer.MAX_VALUE);
         producer.setExecutorService(executor);
         producer.setTransactionListener(txConsumerListener);

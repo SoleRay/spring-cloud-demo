@@ -1,10 +1,8 @@
 package com.sole.ray.distributed.tx.consumer.mq;
 
-import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
-import com.sole.ray.distributed.tx.provider.entity.Provider;
-import com.sole.ray.distributed.tx.provider.service.TransactionLogService;
+import com.sole.ray.distributed.tx.consumer.service.TransactionLogService;
 import com.sole.ray.internal.common.util.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.LocalTransactionState;
@@ -31,10 +29,10 @@ public class TxConsumerListener implements TransactionListener {
      * 回调此方法。
      *
      * 关于返回结果
-     *     1.COMMIT_MESSAGE：说明当前事务执行成功，half msg的状态将会变为成功。可以供TX-Consumer消费
-     *     2.ROLLBACK_MESSAGE，说明当前事务执行失败，执行异常回滚。half msg的状态将会变为失败。此消息将不能被TX-Consumer消费
+     *     1.COMMIT_MESSAGE：说明当前事务执行成功，half msg的状态将会变为成功。可以供TX-Provider消费
+     *     2.ROLLBACK_MESSAGE，说明当前事务执行失败，执行异常回滚。half msg的状态将会变为失败。此消息将不能被TX-Provider消费
      *     3.UNKNOW，不清楚当前事务执行的情况，可能是网络原因引起的。此时MQ将启动回查机制，调用checkLocalTransaction进行回查。
-     *       3.1 如果回查时发生事务执行成功，则返回COMMIT_MESSAGE状态，half msg的状态将会变为成功。可以供TX-Consumer消费
+     *       3.1 如果回查时发生事务执行成功，则返回COMMIT_MESSAGE状态，half msg的状态将会变为成功。可以供TX-Provider消费
      *       3.2 如果回查时还是不清楚事务是否已经执行，将继续返回UNKNOW状态，继续等待回查。回查一定次数以后仍然无法确定，将停止回查。
      *
      */

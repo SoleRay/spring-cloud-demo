@@ -1,8 +1,8 @@
 package com.sole.ray.distributed.tx.consumer.service.impl;
 
-import com.sole.ray.distributed.tx.provider.dao.TransactionLogDao;
-import com.sole.ray.distributed.tx.provider.entity.TransactionLog;
-import com.sole.ray.distributed.tx.provider.service.TransactionLogService;
+import com.sole.ray.distributed.tx.consumer.dao.TransactionLogDao;
+import com.sole.ray.distributed.tx.consumer.entity.TransactionLog;
+import com.sole.ray.distributed.tx.consumer.service.TransactionLogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
