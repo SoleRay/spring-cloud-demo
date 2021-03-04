@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sole.ray.distributed.tx.consumer.dao.TransactionLogDao">
+
+    <resultMap id="BaseResultMap" type="com.sole.ray.distributed.tx.consumer.entity.TransactionLog">
+        <!--@Table transaction_log-->
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="business" column="business" jdbcType="VARCHAR"/>
+        <result property="foreignKey" column="foreign_key" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          id, business, foreign_key
+        from transaction_log
+        where id = #{id}
+    </select>
+
+    <select id="selectById" resultType="java.lang.Integer">
+        select count(1)
+        from transaction_log
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          id, business, foreign_key
+        from transaction_log
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          id, business, foreign_key
+        from transaction_log
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="business != null and business != ''">
+                and business = #{business}
+            </if>
+            <if test="foreignKey != null">
+                and foreign_key = #{foreignKey}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+<!--    <insert id="insert" keyProperty="id" useGeneratedKeys="true">-->
+<!--        insert into transaction_log(business, foreign_key)-->
+<!--        values (#{business}, #{foreignKey})-->
+<!--    </insert>-->
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into transaction_log(id, business, foreign_key)
+        values (#{id}, #{business}, #{foreignKey})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update transaction_log
+        <set>
+            <if test="business != null and business != ''">
+                business = #{business},
+            </if>
+            <if test="foreignKey != null">
+                foreign_key = #{foreignKey},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from transaction_log where id = #{id}
+    </delete>
+
+</mapper>

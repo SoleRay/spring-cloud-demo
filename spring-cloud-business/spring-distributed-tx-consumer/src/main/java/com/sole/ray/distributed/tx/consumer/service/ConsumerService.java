@@ -2,7 +2,6 @@ package com.sole.ray.distributed.tx.consumer.service;
 
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.param.Business;
-import io.seata.rm.tcc.api.BusinessActionContext;
 
 import java.util.List;
 
@@ -57,4 +56,6 @@ public interface ConsumerService {
     boolean deleteById(Integer id);
 
     void doBusiness(Business business);
+
+    void addConsumer(Consumer consumer,String transactionId);
 }

@@ -1,11 +1,14 @@
 package com.sole.ray.distributed.tx.consumer.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.sole.ray.distributed.tx.consumer.config.MQProduerConstant;
 import com.sole.ray.distributed.tx.consumer.entity.Consumer;
 import com.sole.ray.distributed.tx.consumer.dao.ConsumerDao;
+import com.sole.ray.distributed.tx.consumer.mq.MQTransactionProducer;
 import com.sole.ray.distributed.tx.consumer.param.Business;
 import com.sole.ray.distributed.tx.consumer.service.ConsumerService;
-import io.seata.rm.tcc.api.BusinessActionContext;
-import io.seata.spring.annotation.GlobalTransactional;
+import com.sole.ray.distributed.tx.provider.config.ProducerConstant;
+import org.apache.rocketmq.client.exception.MQClientException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +28,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     private ConsumerDao consumerDao;
 
     @Autowired
-    private ConsumerTccService consumerTccService;
+    private MQTransactionProducer producer;
 
     /**
      * 通过ID查询单条数据
@@ -88,10 +91,18 @@ public class ConsumerServiceImpl implements ConsumerService {
         return this.consumerDao.deleteById(id) > 0;
     }
 
-    @GlobalTransactional
     @Override
     public void doBusiness(Business business){
-        consumerTccService.doBusinessPrepare(business);
+        try {
+            producer.send(JSON.toJSONString(business), MQProduerConstant.MQ_PRODUCER_TOPIC);
+        } catch (MQClientException e) {
+            throw new RuntimeException(e.getErrorMessage());
+        }
     }
 
+    @Transactional
+    @Override
+    public void addConsumer(Consumer consumer,String transactionId) {
+        consumerDao.insert(consumer);
+    }
 }
