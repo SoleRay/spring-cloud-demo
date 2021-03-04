@@ -1,6 +1,6 @@
-package com.sole.ray.distributed.tx.consumer.param;
+package com.sole.ray.distributed.tx.provider.param;
 
-import com.sole.ray.distributed.tx.consumer.entity.Consumer;
+import com.sole.ray.distributed.tx.provider.entity.Provider;
 import lombok.Data;
 
 @Data

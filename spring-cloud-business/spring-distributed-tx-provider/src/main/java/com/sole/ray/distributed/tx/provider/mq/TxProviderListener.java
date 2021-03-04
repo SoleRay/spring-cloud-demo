@@ -1,7 +1,7 @@
 package com.sole.ray.distributed.tx.provider.mq;
 
 import com.alibaba.fastjson.JSONObject;
-import com.sole.ray.distributed.tx.consumer.param.Business;
+import com.sole.ray.distributed.tx.provider.param.Business;
 import com.sole.ray.distributed.tx.provider.service.ProviderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -23,6 +23,7 @@ public class TxProviderListener implements MessageListenerConcurrently {
     @Override
     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext context) {
         log.info("服务消费者线程监听到消息。");
+        int x=1/0;
         try{
             for (MessageExt message:list) {
                 log.info("消费消息中。。。");
