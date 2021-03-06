@@ -1,4 +1,4 @@
-package com.sole.ray.internal.common.entity;
+package com.sole.ray.order.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
