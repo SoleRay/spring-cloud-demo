@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:mysql://192.168.0.10:3306/tx_consumer?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    #当有多个eureka的时候，需要配置下面这个，格式：http://${eureka.instance.hostname}:${server.port}/eureka
+    service-url:
+      defaultZone: http://192.168.0.10:7900/eureka/,http://192.168.0.11:7900/eureka/,http://192.168.0.12:7900/eureka/
+
+server:
+  port: 1100

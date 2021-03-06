@@ -1,12 +1,13 @@
 package com.sole.ray.order.controller;
 
 import com.sole.ray.internal.common.anno.ResponseResult;
-import com.sole.ray.internal.common.bean.result.Result;
 import com.sole.ray.order.entity.Order;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @ResponseResult
@@ -18,8 +19,13 @@ public class OrderController {
         System.out.println(order);
     }
 
-    @PostMapping("/get")
-    public Order stringPort() {
+    @GetMapping("/get")
+    public Order getOrder() {
+        try {
+            TimeUnit.SECONDS.sleep(4);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return new Order(2,255);
     }
 

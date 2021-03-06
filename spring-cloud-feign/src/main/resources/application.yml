@@ -12,6 +12,13 @@ eureka:
 server:
   port: 5300
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+
 #feign:
 #  client:
 #    config:
